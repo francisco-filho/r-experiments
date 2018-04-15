@@ -3,6 +3,7 @@
 #install.packages("maptools")
 
 library(dplyr)
+library(ggplot2)
 library(stringr)
 library(readr)
 library(rgdal)
@@ -12,7 +13,7 @@ br <- readOGR("/home/francisco/Downloads/shapes/UFEBRASIL.shp")
 ll <- read_csv("/home/francisco/Downloads/shapes/municipios.csv")
 
 ll <- ll %>% 
-    filter(uf == 'BA')
+    filter(uf == 'BA') %>% 
     select(latitude, longitude)
 #ba <- uf
 ba <- fortify(uf) %>% 
@@ -24,6 +25,7 @@ br <- fortify(br) %>%
 theme_map <- function(...) {
     theme_classic() +
     theme(
+        axis.line = element_line(size=.2),
         legend.position = "bottom",
         legend.direction = "horizontal",
         ...
